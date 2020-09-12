@@ -68,15 +68,25 @@ def load_dataset(path_name):
     #图片为64 * 64像素,一个像素3个颜色值(RGB)
     images = np.array(images)
     # print(images.shape)    
-    
+    names = ['lzf', 'yeye', 'houxiaozi']
+    id = []
+    for label in labels:
+        if label.endswith(names[0]):
+            id.append(0)
+        if label.endswith(names[1]):
+            id.append(1)
+        if label.endswith(names[2]):
+            id.append(2)
     #标注数据，'lzf'文件夹下都是我的脸部图像，全部指定为0，另外一个文件夹下是同学的，全部指定为1
-    labels = np.array([0 if label.endswith('lzf') else 1 for label in labels])    
-    return images, labels
+    classes = len(set(id))
+    labels = np.array(id)  
+
+    return images, labels, classes
 
 if __name__ == '__main__':
     if len(sys.argv) != 1:
         print("Usage:%s path_name\r\n" % (sys.argv[0]))    
     else:
-        images, labels = load_dataset(r"C:\Users\ASUS\Desktop\test")
-    print(images.shape, labels.shape)
+        images, labels, classes = load_dataset(r"C:\Users\ASUS\Desktop\github_Backup\VeriFace")
+    print(images.shape, labels.shape, classes)
 

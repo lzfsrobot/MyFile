@@ -17,7 +17,7 @@ config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 
 
-name = ['lzf', 'grandpa']
+name = ['lzf', 'yeye', 'houxiaozi']
 def CatchPICFromVideo(window_name):
     cv2.namedWindow(window_name)
     model = tf.keras.models.load_model(r'cnn_network.h5')    

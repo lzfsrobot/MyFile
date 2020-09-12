@@ -14,7 +14,7 @@ config = ConfigProto()
 config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 # 加载数据
-datas, labels = load_dataset(r'C:\Users\ASUS\Desktop\test')
+datas, labels, classes = load_dataset(r'C:\Users\ASUS\Desktop\github_Backup\VeriFace')
 
 # print(datas.shape, labels.shape)
 # print(labels[0], labels[1000])
@@ -23,7 +23,7 @@ def preprocess(x, y):
     # [0~1]
     x = tf.cast(x, dtype=tf.float32) / 255.
     y = tf.cast(y, dtype=tf.int32)
-    y = tf.one_hot(y, depth=2)
+    y = tf.one_hot(y, depth=classes)
     return x,y
 
 X_train, X_test, y_train, y_test = train_test_split(datas, labels, test_size = 0.2, random_state = random.randint(0, 100))
@@ -73,7 +73,7 @@ cnn_network = Sequential([
 
     layers.Dense(256, activation=tf.nn.relu),
     layers.Dense(64, activation=tf.nn.relu),
-    layers.Dense(2, activation=None),
+    layers.Dense(classes, activation=None),
 ])
 
 cnn_network.build(input_shape=[None, 64, 64, 3])
@@ -96,4 +96,4 @@ pred = model.predict(xx)
 pred = tf.argmax(pred, axis=1)
 
 print(pred == yy)
-
+print(pred)
